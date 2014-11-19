@@ -18,10 +18,10 @@
     </div>
 <nav>
 
-    <h1>imageTransfer</h1>
+    <h1>Retell A/S</h1>
 <form action="#get" method="post" enctype="multipart/form-data" class="right">
     upload billede:
-    <input type="file" name="fileToUpload" id="fileToUpload" class="fileToUpload">
+    <input type="file" name="fileToUpload" id="fileToUpload" class="fileToUpload" value="true">
    BESKRIVELSE <input type="text" name="beskrivelse">
    <input class="aim" type="submit" value="Tilføj produkt" name="submit">
     <input type="hidden" name="submitted" value="true" />
@@ -38,7 +38,8 @@
                
                <input id="desc" style="display:none;" name="dato" type="radio" value="desc" onclick="document.getElementById('sortit').submit();"/>
                <label for="desc"> <p>New</p></label>
-          
+              <input type="hidden" name="submitted" value="true" />
+
             </form>
 </div>
 <div class="wrap">
@@ -46,9 +47,6 @@
 <?php include "get.php"; ?>
 </div>
 
-<div id="footer">
-  <p>All Rights reserved</p>
 
-</div>
 </body>
 </html>
