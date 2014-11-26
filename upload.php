@@ -7,7 +7,7 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
+        echo "File Valid (" . $check["mime"] . ").<br>";
         $uploadOk = 1;
     } else {
         echo "File is not an image.";
@@ -17,7 +17,7 @@ if(isset($_POST["submit"])) {
 // Check if file already exists
 if (file_exists($target_file)) {
     echo "Sorry, file already exists.";
-    $uploadOk = 0;
+    $uploadOk = 1;
 }
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 5000000) {
@@ -36,7 +36,7 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded."; 
+        echo "Server: ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded. "; 
 
         /*insert image name to db*/
         $servername = "localhost";
@@ -50,16 +50,33 @@ if ($uploadOk == 0) {
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } 
-        $set = $_FILES["fileToUpload"]["name"];
-        $beskriv = $_POST["beskrivelse"];
+        $image_name = $_FILES["fileToUpload"]["name"];
+        $product_name = $_POST["product_name"];
+        $season_name = $_POST["season_name"];
 
-        $sql = "INSERT INTO product (img, beskrivelse) VALUES ('$set', '$beskriv')";
+        //insert product name and image to product table
+        mysqli_query($conn, "SET AUTOCOMMIT=0");
+        mysqli_query($conn, "START TRANSACTION");
 
-        if (mysqli_query($conn, $sql)) {
-            echo "New record created successfully<br>";
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        $a1 = mysqli_query($conn, "INSERT INTO product (beskrivelse, img) VALUES ('$product_name', '$image_name')") or die ('Unable to execute query. '. mysqli_error($conn));
+        $a2 = mysqli_query($conn, "INSERT INTO season (season_name) VALUES ('$season_name')") or die ('Unable to execute query. '. mysqli_error($conn));
+
+        if ($a1 and $a2) {
+            mysqli_query($conn, "COMMIT");
+            echo "<br>Record have been saved in the database.";
+        } else {        
+            mysqli_query($conn, "ROLLBACK");
+            echo "<br>rollback<br>";
         }
+
+   // $sql = "INSERT INTO product (beskrivelse, img)
+   //      VALUES ('$product_name', '$image_name')";
+
+   //      if (mysqli_query($conn, $sql)){
+   //          echo "seasons did it good<br>";
+   //      } else {
+   //          echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+   //      }
         $conn->close();
     } else {
         echo "Sorry, there was an error uploading your file.";
