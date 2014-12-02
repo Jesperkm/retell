@@ -22,9 +22,11 @@ if (isset($_GET['dato'])){
         $result= mysqli_query($conn, "SELECT * FROM product ORDER BY dato ASC");
 
         while($row = mysqli_fetch_array($result)) {
-         echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['beskrivelse'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
+         echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['product_name'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
         }      
     }
+
+
 
     //SORT BY NEW
     if($sort == "desc") {           
@@ -33,7 +35,7 @@ if (isset($_GET['dato'])){
 
         while($row = mysqli_fetch_array($result)) {
          echo "<div class='sized'>" 
-         . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['beskrivelse'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
+         . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['product_name'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
         }
     }
 
@@ -43,7 +45,7 @@ if (isset($_GET['dato'])){
         $result= mysqli_query($conn, "SELECT * FROM product ORDER BY dato DESC");
 
         while($row = mysqli_fetch_array($result)) {
-            echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['beskrivelse'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
+            echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['product_name'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
         }                 
     }
 }
@@ -55,42 +57,42 @@ if (isset($_GET['dato'])){
         //SORT BY Season: summer
         if ($season_sort == "summer") {          
             echo '<p class="info">SUMMER</p>';
-            $result= mysqli_query($conn, "SELECT * FROM season_products_view WHERE season_name = 'summer' ORDER BY dato DESC");
+            $result= mysqli_query($conn, "SELECT * FROM product WHERE seasonID = '2' ORDER BY dato DESC");
 
             while($row = mysqli_fetch_array($result)) {
-             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['beskrivelse'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
+             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['product_name'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
             }      
         }
 
         //SORT BY Season: Spring
         if ($season_sort == "spring") {          
             echo '<p class="info">Spring</p>';
-            $result= mysqli_query($conn, "SELECT * FROM season_products_view WHERE season_name = 'spring' ORDER BY dato DESC");
+            $result= mysqli_query($conn, "SELECT * FROM product WHERE seasonID = '3' ORDER BY dato DESC");
 
             while($row = mysqli_fetch_array($result)) {
-             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['beskrivelse'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
+             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['product_name'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
             }
         }
 
         //SORT BY Season: Fall
         if ($season_sort == "fall") {          
             echo '<p class="info">Fall</p>';
-            $result= mysqli_query($conn, "SELECT * FROM season_products_view WHERE season_name = 'fall' ORDER BY dato DESC");
+            $result= mysqli_query($conn, "SELECT * FROM season_product_view WHERE seasonID = '4'");
 
             while($row = mysqli_fetch_array($result)) {
-             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['beskrivelse'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
+             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['product_img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['product_name'] . "</p>" . "<p class='date'>" . $row['season_name'] . "</p>";
             }      
         }
 
         //SORT BY Season: Winter
         if ($season_sort == "winter") {          
             echo '<p class="info">Winter</p>';
-            $result= mysqli_query($conn, "SELECT * FROM season_products_view WHERE season_name = 'winter' ORDER BY dato DESC");
+            $result= mysqli_query($conn, "SELECT * FROM product WHERE seasonID = '1' ORDER BY dato DESC");
 
             while($row = mysqli_fetch_array($result)) {
-             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['beskrivelse'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
+             echo "<div class='sized'>" . "<img class='image' src='uploads/",$row['img'],"' width='320px' height='' />" . "<br>" . "<p class='title'>" . $row['product_name'] . "</p>" . "<p class='date'>" . $row['dato'] . "</p>" . "</div>";
             }      
         }
     }
-$conn->close();
 
+$conn->close();

@@ -25,13 +25,18 @@
     <input type="file" name="fileToUpload" id="fileToUpload" class="fileToUpload" value="true">
    Navn <input type="text" name="product_name">
 
-  <select name="season_name">
-    <option value="winter">Winter</option>
-    <option value="fall">Fall</option>
-    <option value="spring">Spring</option>
-    <option value="summer">Summer</option>
-  </select>
+<?php
+      include 'init.php';
 
+        $result= mysqli_query($conn, "SELECT * FROM season");
+        echo " <select name='season_name'>";
+        while($row = mysqli_fetch_array($result)) {
+         echo "<option value='".$row['seasonID']."'>" . $row['season_name'] . "</option>";
+        }
+        echo "</select>";
+
+        $conn->close();
+?>
    <input class="aim" type="submit" value="Tilføj produkt" name="submit">
     <input type="hidden" name="submitted" value="true" />
 </form>
