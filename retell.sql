@@ -2,10 +2,10 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Vært: 127.0.0.1
--- Genereringstid: 04. 11 2014 kl. 20:26:46
--- Serverversion: 5.6.17
--- PHP-version: 5.5.12
+-- Host: localhost
+-- Generation Time: Dec 02, 2014 at 10:59 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `album`
+-- Table structure for table `album`
 --
 
 CREATE TABLE IF NOT EXISTS `album` (
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `album` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE IF NOT EXISTS `category` (
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `color`
+-- Table structure for table `color`
 --
 
 CREATE TABLE IF NOT EXISTS `color` (
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `color` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `colors`
+-- Table structure for table `colors`
 --
 
 CREATE TABLE IF NOT EXISTS `colors` (
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `colors` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `country`
+-- Table structure for table `country`
 --
 
 CREATE TABLE IF NOT EXISTS `country` (
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `country` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `fair`
+-- Table structure for table `fair`
 --
 
 CREATE TABLE IF NOT EXISTS `fair` (
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `fair` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `holiday`
+-- Table structure for table `holiday`
 --
 
 CREATE TABLE IF NOT EXISTS `holiday` (
@@ -125,20 +125,7 @@ CREATE TABLE IF NOT EXISTS `holiday` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `holidayproducts`
---
-
-CREATE TABLE IF NOT EXISTS `holidayproducts` (
-  `HolidayProductsID` int(11) NOT NULL AUTO_INCREMENT,
-  `seasonID` int(11) NOT NULL,
-  `productID` int(11) NOT NULL,
-  PRIMARY KEY (`HolidayProductsID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktur-dump for tabellen `manufactor`
+-- Table structure for table `manufactor`
 --
 
 CREATE TABLE IF NOT EXISTS `manufactor` (
@@ -150,20 +137,22 @@ CREATE TABLE IF NOT EXISTS `manufactor` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `manufactors`
+-- Table structure for table `manufactors`
 --
 
 CREATE TABLE IF NOT EXISTS `manufactors` (
   `manufactorsID` int(11) NOT NULL AUTO_INCREMENT,
   `productID` int(11) NOT NULL,
   `manufactors` varchar(60) NOT NULL,
-  PRIMARY KEY (`manufactorsID`)
+  PRIMARY KEY (`manufactorsID`),
+  KEY `productID` (`productID`),
+  KEY `manufactorsID` (`manufactorsID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `material`
+-- Table structure for table `material`
 --
 
 CREATE TABLE IF NOT EXISTS `material` (
@@ -176,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `material` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `materials`
+-- Table structure for table `materials`
 --
 
 CREATE TABLE IF NOT EXISTS `materials` (
@@ -189,36 +178,38 @@ CREATE TABLE IF NOT EXISTS `materials` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `product`
+-- Table structure for table `product`
 --
 
 CREATE TABLE IF NOT EXISTS `product` (
   `productID` int(11) NOT NULL AUTO_INCREMENT,
-  `product_name` varchar(60) CHARACTER SET utf8 COLLATE utf8_danish_ci DEFAULT NULL,
-  `tags` varchar(60) DEFAULT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `seasonID` int(11) NOT NULL,
+  `product_name` varchar(60) CHARACTER SET utf8 COLLATE utf8_danish_ci NOT NULL,
+  `tags` varchar(60) CHARACTER SET latin1 COLLATE latin1_danish_ci NOT NULL,
+  `dato` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `countryArea` varchar(60) CHARACTER SET utf8 COLLATE utf8_danish_ci DEFAULT NULL,
   `fair` varchar(60) CHARACTER SET utf16 COLLATE utf16_danish_ci DEFAULT NULL,
   `material` varchar(60) CHARACTER SET utf8 COLLATE utf8_danish_ci DEFAULT NULL,
   `img` varchar(120) NOT NULL,
-  `beskrivelse` varchar(360) DEFAULT NULL,
-  PRIMARY KEY (`productID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=141 ;
+  `beskrivelse` varchar(360) NOT NULL,
+  PRIMARY KEY (`productID`),
+  KEY `seasonID` (`seasonID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
 
 --
--- Data dump for tabellen `product`
+-- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`productID`, `product_name`, `tags`, `date`, `countryArea`, `fair`, `material`, `img`, `beskrivelse`) VALUES
-(136, NULL, NULL, '2014-11-04 19:18:09', NULL, NULL, NULL, 'bg.jpg', 'Hej jeg er en baggrund'),
-(137, NULL, NULL, '2014-11-04 19:18:09', NULL, NULL, NULL, 'bg5.jpg', 'aseeaseaaseaes'),
-(139, NULL, NULL, '2014-11-04 19:18:09', NULL, NULL, NULL, 'mustache-web.jpeg', 'im a mustache'),
-(140, NULL, NULL, '2014-11-04 19:18:34', NULL, NULL, NULL, 'forside.png', 'aseaseseaeaseease');
+INSERT INTO `product` (`productID`, `seasonID`, `product_name`, `tags`, `dato`, `countryArea`, `fair`, `material`, `img`, `beskrivelse`) VALUES
+(34, 4, 'Koala', '', '2014-12-02 21:03:00', NULL, NULL, NULL, 'Koala.jpg', 'Koala desc'),
+(35, 3, 'Lighthouse', '', '2014-12-02 21:05:45', NULL, NULL, NULL, 'Lighthouse.jpg', 'lighthouse desc'),
+(36, 1, 'Pingviner', '', '2014-12-02 21:07:42', NULL, NULL, NULL, 'Penguins.jpg', 'Pingviner desc'),
+(37, 2, 'Desert', '', '2014-12-02 21:07:51', NULL, NULL, NULL, 'Desert.jpg', 'desert desc');
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `producttags`
+-- Table structure for table `producttags`
 --
 
 CREATE TABLE IF NOT EXISTS `producttags` (
@@ -231,33 +222,43 @@ CREATE TABLE IF NOT EXISTS `producttags` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `season`
+-- Table structure for table `season`
 --
 
 CREATE TABLE IF NOT EXISTS `season` (
   `seasonID` int(11) NOT NULL AUTO_INCREMENT,
-  `season_name` varchar(60) NOT NULL,
-  `season_products` int(11) NOT NULL,
-  PRIMARY KEY (`seasonID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `season_name` varchar(30) CHARACTER SET latin1 COLLATE latin1_danish_ci NOT NULL,
+  PRIMARY KEY (`seasonID`),
+  KEY `season_name` (`season_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Dumping data for table `season`
+--
+
+INSERT INTO `season` (`seasonID`, `season_name`) VALUES
+(4, 'Fall'),
+(3, 'Spring'),
+(2, 'Summer'),
+(1, 'Winter');
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `seasonproducts`
+-- Stand-in structure for view `season_product_view`
 --
-
-CREATE TABLE IF NOT EXISTS `seasonproducts` (
-  `Season ProductsID` int(11) NOT NULL AUTO_INCREMENT,
-  `seasonID` int(11) NOT NULL,
-  `productID` int(11) NOT NULL,
-  PRIMARY KEY (`Season ProductsID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
+CREATE TABLE IF NOT EXISTS `season_product_view` (
+`productID` int(11)
+,`product_name` varchar(60)
+,`product_beskrivelse` varchar(360)
+,`product_img` varchar(120)
+,`season_name` varchar(30)
+,`seasonID` int(11)
+);
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `size`
+-- Table structure for table `size`
 --
 
 CREATE TABLE IF NOT EXISTS `size` (
@@ -270,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `size` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `sizes`
+-- Table structure for table `sizes`
 --
 
 CREATE TABLE IF NOT EXISTS `sizes` (
@@ -282,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `sizes` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `tags`
+-- Table structure for table `tags`
 --
 
 CREATE TABLE IF NOT EXISTS `tags` (
@@ -294,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -309,6 +310,25 @@ CREATE TABLE IF NOT EXISTS `user` (
   `phoneNumber` int(20) NOT NULL,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `season_product_view`
+--
+DROP TABLE IF EXISTS `season_product_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `season_product_view` AS select `product`.`productID` AS `productID`,`product`.`product_name` AS `product_name`,`product`.`beskrivelse` AS `product_beskrivelse`,`product`.`img` AS `product_img`,`season`.`season_name` AS `season_name`,`season`.`seasonID` AS `seasonID` from (`product` join `season` on((`product`.`seasonID` = `season`.`seasonID`)));
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`seasonID`) REFERENCES `season` (`seasonID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
